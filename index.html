@@ -1,183 +1,278 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard Executivo - Reincidências Técnicas</title>
+
 <style>
-body{
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background:#eef2f7;
-    margin:0;
-    color:#1f2937;
-}
-.header{
-    background:linear-gradient(135deg,#0f172a,#1e3a8a);
-    color:white;
-    padding:40px;
-    text-align:center;
-}
-.header h1{margin:0;font-size:34px;}
-.header p{margin-top:10px;opacity:.9;}
-.container{
-    max-width:1200px;
-    margin:auto;
-    padding:30px;
-}
-.cards{
-    display:flex;
-    gap:20px;
-    flex-wrap:wrap;
-    margin-bottom:30px;
-}
-.card{
-    flex:1;
-    min-width:220px;
-    background:white;
-    border-radius:12px;
-    padding:20px;
-    box-shadow:0 3px 10px rgba(0,0,0,.08);
-}
-.card h3{
-    margin:0;
-    color:#64748b;
-    font-size:14px;
-    text-transform:uppercase;
-}
-.card .value{
-    font-size:36px;
-    font-weight:bold;
-    margin-top:10px;
-}
-.podium{
-    display:grid;
-    grid-template-columns:1fr 1fr 1fr;
-    gap:20px;
-    margin-bottom:30px;
-    margin-top:20px;
-}
-.place{
-    background:white;
-    border-radius:12px;
-    padding:30px 25px 25px;
-    text-align:center;
-    box-shadow:0 3px 10px rgba(0,0,0,.08);
-}
-.place h2{
-    margin:0 0 12px 0;
-    font-size:42px;
-    line-height:1.2;
-    display:block;
-}
-.gold{border-top:8px solid #d4af37;}
-.silver{border-top:8px solid #c0c0c0;}
-.bronze{border-top:8px solid #cd7f32;}
-table{
-    width:100%;
-    border-collapse:collapse;
-    background:white;
-    border-radius:12px;
-    overflow:hidden;
-    box-shadow:0 3px 10px rgba(0,0,0,.08);
-}
-th{
-    background:#1e3a8a;
-    color:white;
-    padding:14px;
-}
-td{
-    padding:12px;
-    border-bottom:1px solid #e5e7eb;
-}
-tr:hover{
-    background:#f8fafc;
-}
-.good{color:#16a34a;font-weight:bold;}
-.alert{color:#dc2626;font-weight:bold;}
-.footer{
-    margin-top:20px;
-    color:#64748b;
-    font-size:14px;
-}
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{font-family:var(--font-sans);padding-bottom:2rem}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:var(--surface-2);border:0.5px solid var(--border);border-radius:12px;margin-bottom:4px}
+.topbar img{height:34px}
+.tr{text-align:right}.tr strong{display:block;font-size:14px;font-weight:500;color:var(--text-primary)}.tr span{font-size:11px;color:var(--text-secondary)}
+.rainbow{height:3px;background:linear-gradient(90deg,#e8303a,#e8609e,#9b35c6,#4f6dee,#28cce8,#2bc96e,#84c81e);margin-bottom:1.5rem}
+.nav{display:flex;border-bottom:1.5px solid var(--border);margin-bottom:1.5rem;flex-wrap:wrap}
+.nav button{background:none;border:none;border-bottom:2.5px solid transparent;padding:8px 14px;font-size:12px;color:var(--text-secondary);cursor:pointer;margin-bottom:-1.5px}
+.nav button.on{color:#4f6dee;border-bottom-color:#4f6dee;font-weight:500}
+.nav button:hover:not(.on){color:var(--text-primary)}
+.sec{display:none}.sec.on{display:block}
+.krow{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:9px;margin-bottom:1.2rem}
+.kpi{background:var(--surface-2);border:0.5px solid var(--border);border-radius:10px;padding:13px 15px;position:relative;overflow:hidden}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:#4f6dee}
+.kpi.k2::before{background:#2bc96e}.kpi.k3::before{background:#9b35c6}.kpi.k4::before{background:#28cce8}.kpi.kr::before{background:#e8303a}.kpi.ko::before{background:#eda100}
+.kl{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--text-secondary);margin-bottom:7px}
+.kv{font-size:20px;font-weight:500;color:var(--text-primary);line-height:1;margin-bottom:5px}
+.kd{font-size:11px;color:var(--text-muted)}.kd.up{color:#166534}.kd.dn{color:#991b1b}
+.card{background:var(--surface-2);border:0.5px solid var(--border);border-radius:10px;padding:1.1rem 1.2rem;margin-bottom:.875rem}
+.ct{font-size:13px;font-weight:500;color:var(--text-primary);margin-bottom:2px}
+.cs{font-size:11px;color:var(--text-muted);margin-bottom:.8rem}
+.leg{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:9px}
+.li{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text-secondary)}
+.ld{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:.875rem}
+@media(max-width:560px){.g2{grid-template-columns:1fr}}
+.notice{border-radius:8px;padding:9px 13px;font-size:12px;line-height:1.6;margin-bottom:1rem;display:flex;gap:8px;align-items:flex-start}
+.nw{background:#fef9e7;border:0.5px solid #fde68a;color:#92400e}
+.ni{background:#eef0fd;border:0.5px solid rgba(79,109,238,.3);color:#1e3a8a}
+.ng{background:#f0fdf4;border:0.5px solid #86efac;color:#166534}
+.facts{display:flex;flex-direction:column;gap:7px;margin-top:4px}
+.fact{display:flex;gap:9px;align-items:flex-start;padding:9px 11px;background:var(--surface-1);border-radius:8px;font-size:12px;line-height:1.5;border-left:3px solid #4f6dee}
+.fact.w{border-left-color:#f59e0b}.fact.g{border-left-color:#2bc96e}.fact.r{border-left-color:#e8303a}
+.fic{width:25px;height:25px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px;margin-top:1px}
+.fb{background:#eef0fd;color:#4f6dee}.fw{background:#fef3c7;color:#d97706}.fg{background:#dcfce7;color:#166534}.fr{background:#fef2f2;color:#dc2626}
+.ft{font-size:12px;font-weight:500;color:var(--text-primary);margin-bottom:2px}
+.fd{font-size:11px;color:var(--text-secondary)}
+table{width:100%;font-size:12px;border-collapse:collapse}
+th{text-align:left;padding:7px 8px;font-weight:500;color:var(--text-secondary);border-bottom:0.5px solid var(--border)}
+td{padding:6px 8px;border-bottom:0.5px solid var(--border);color:var(--text-secondary)}
+td.v{color:var(--text-primary);font-weight:500}
+td.up{color:#166534;font-weight:500}
+td.dn{color:#991b1b;font-weight:500}
 </style>
-</head>
-<body>
 
-<div class="header">
-    <h1>Dashboard Executivo de Reincidências</h1>
-    <p>Ranking dos Técnicos com Menor Índice de Reincidências</p>
+<h2 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden">Dashboard Totalvia — Comparativo Maio vs Junho 2026, escala 5×2</h2>
+
+<div class="wrap">
+<div class="topbar">
+  <img src="data:image/png;base64,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" alt="Totalvia" />
+  <div class="tr"><strong>Comparativo Maio vs Junho 2026 — Escala 5×2</strong><span>Primeiro mês completo sob a nova escala · Análise por setor</span></div>
 </div>
+<div class="rainbow"></div>
 
-<div class="container">
+<nav class="nav">
+  <button class="on" onclick="T('at',this)">Atendimento</button>
+  <button onclick="T('n1',this)">Suporte N1</button>
+  <button onclick="T('n2',this)">Suporte N2</button>
+  <button onclick="T('n3',this)">Transmissão N3</button>
+  <button onclick="T('rc',this)">Reincidências</button>
+  <button onclick="T('at2',this)">Atestados</button>
+  <button onclick="T('gs',this)">Consolidado</button>
+</nav>
 
-<div class="cards">
+<!-- ATENDIMENTO -->
+<div id="at" class="sec on">
+  <div class="krow">
+    <div class="kpi"><div class="kl">Tickets Blip — Maio</div><div class="kv">1.167</div><div class="kd">finalizados</div></div>
+    <div class="kpi k2"><div class="kl">Tickets Blip — Junho</div><div class="kv">1.173</div><div class="kd up">▲ +0,5%</div></div>
+    <div class="kpi k3"><div class="kl">T. médio atend. — Maio</div><div class="kv">1h22</div><div class="kd">média da equipe</div></div>
+    <div class="kpi k4"><div class="kl">T. médio atend. — Junho</div><div class="kv">1h20</div><div class="kd up">▼ −2 min</div></div>
+  </div>
+  <div class="notice nw"><i class="ti ti-alert-triangle" aria-hidden="true"></i>&nbsp; Kimberly entrou de férias em 15/06. O volume dela em junho (133 tickets) é parcial. Não compare o total dela entre os meses sem normalizar por dias trabalhados.</div>
+  <div class="notice nw"><i class="ti ti-alert-triangle" aria-hidden="true"></i>&nbsp; O relatório de junho atribui a redução de cancelamentos a dois fatores concorrentes: treinamento com o Lucas e escala 5×2. Os dois ocorreram ao mesmo tempo — não é possível isolar o efeito da escala dos efeitos do treinamento.</div>
+  <div class="card">
+    <div class="ct">Tickets finalizados por atendente — Blip</div>
+    <div class="cs">Comparativo absoluto · Maio vs Junho 2026</div>
+    <div class="leg"><span class="li"><span class="ld" style="background:#4f6dee"></span>Maio</span><span class="li"><span class="ld" style="background:#2bc96e"></span>Junho</span></div>
+    <div style="position:relative;width:100%;height:220px"><canvas id="cBlip" role="img" aria-label="Tickets Blip maio vs junho">Arlene 318/362. Ane K 279/301. Kimberly 273/133. Amanda 295/336. Rosi 2/41.</canvas></div>
+  </div>
+  <div class="g2">
     <div class="card">
-        <h3>Total de Técnicos Avaliados</h3>
-        <div class="value">9</div>
+      <div class="ct">Tempo médio de atendimento — Blip</div><div class="cs">Em minutos por atendente</div>
+      <div class="leg"><span class="li"><span class="ld" style="background:#4f6dee"></span>Maio</span><span class="li"><span class="ld" style="background:#2bc96e"></span>Junho</span></div>
+      <div style="position:relative;width:100%;height:200px"><canvas id="cTmp" role="img" aria-label="Tempo médio atendimento maio vs junho">Arlene 84/76. Ane K 99/88. Kimberly 129/128. Amanda 55/58.</canvas></div>
     </div>
     <div class="card">
-        <h3>Menor Reincidência</h3>
-        <div class="value">35</div>
+      <div class="ct">Média diária de tickets — Junho</div><div class="cs">Total ÷ dias trabalhados</div>
+      <div style="position:relative;width:100%;height:200px"><canvas id="cMed" role="img" aria-label="Média diária junho">Arlene 14.5. Ane K 12.0. Kimberly 11.1. Amanda 13.4. Rosi 1.6.</canvas></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ct">Métricas de atendimento — Maio vs Junho</div>
+    <div class="cs">Comparativo detalhado por atendente</div>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr>
+          <th>Atendente</th><th style="text-align:right">Tickets Mai</th><th style="text-align:right">Tickets Jun</th><th style="text-align:right">Var.</th><th style="text-align:right">T. médio Mai</th><th style="text-align:right">T. médio Jun</th><th style="text-align:right">Var.</th>
+        </tr></thead>
+        <tbody>
+          <tr><td class="v">Arlene</td><td style="text-align:right">318</td><td style="text-align:right">362</td><td class="up" style="text-align:right">▲ +13,8%</td><td style="text-align:right">1h24</td><td style="text-align:right">1h16</td><td class="up" style="text-align:right">▼ −8 min</td></tr>
+          <tr><td class="v">Ane Karoline</td><td style="text-align:right">279</td><td style="text-align:right">301</td><td class="up" style="text-align:right">▲ +7,9%</td><td style="text-align:right">1h39</td><td style="text-align:right">1h28</td><td class="up" style="text-align:right">▼ −11 min</td></tr>
+          <tr><td class="v">Kimberly ⚠️</td><td style="text-align:right">273</td><td style="text-align:right">133</td><td class="dn" style="text-align:right">▼ férias 15/06</td><td style="text-align:right">2h09</td><td style="text-align:right">2h08</td><td style="text-align:right">−1 min</td></tr>
+          <tr><td class="v">Amanda</td><td style="text-align:right">295</td><td style="text-align:right">336</td><td class="up" style="text-align:right">▲ +13,9%</td><td style="text-align:right">0h55</td><td style="text-align:right">0h58</td><td style="text-align:right">+3 min</td></tr>
+          <tr><td class="v">Rosi</td><td style="text-align:right">2</td><td style="text-align:right">41</td><td class="up" style="text-align:right">▲ suporte</td><td style="text-align:right">—</td><td style="text-align:right">—</td><td style="text-align:right">—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- N1 -->
+<div id="n1" class="sec">
+  <div class="krow">
+    <div class="kpi"><div class="kl">Total recebidos — Maio</div><div class="kv">382</div><div class="kd">Natalia 12 dias</div></div>
+    <div class="kpi k2"><div class="kl">Total recebidos — Junho</div><div class="kv">566</div><div class="kd up">▲ +48% (20 dias)</div></div>
+    <div class="kpi k3"><div class="kl">Média/dia Natalia — Maio</div><div class="kv">11,3</div><div class="kd">136 ÷ 12 dias</div></div>
+    <div class="kpi k4"><div class="kl">Média/dia Natalia — Junho</div><div class="kv">17,3</div><div class="kd up">▲ +53% (20 dias)</div></div>
+  </div>
+  <div class="notice nw"><i class="ti ti-alert-triangle" aria-hidden="true"></i>&nbsp; Natalia trabalhou 12 dias em maio e 20 em junho. A alta no total bruto reflete os dias disponíveis, não necessariamente uma melhora de produtividade. Use sempre a média diária.</div>
+  <div class="g2">
+    <div class="card">
+      <div class="ct">Média diária de atendimentos — N1</div><div class="cs">Total ÷ dias trabalhados · Maio vs Junho</div>
+      <div class="leg"><span class="li"><span class="ld" style="background:#4f6dee"></span>Maio</span><span class="li"><span class="ld" style="background:#2bc96e"></span>Junho</span></div>
+      <div style="position:relative;width:100%;height:190px"><canvas id="cN1m" role="img" aria-label="Média diária N1">Natalia 11.3/17.3. Ana Maria 9.8/11.0. Ana Carolina —/1.8.</canvas></div>
     </div>
     <div class="card">
-        <h3>Maior Reincidência</h3>
-        <div class="value">72</div>
+      <div class="ct">Tempo médio de atendimento — N1</div><div class="cs">Em minutos · Maio vs Junho</div>
+      <div class="leg"><span class="li"><span class="ld" style="background:#4f6dee"></span>Maio</span><span class="li"><span class="ld" style="background:#2bc96e"></span>Junho</span></div>
+      <div style="position:relative;width:100%;height:190px"><canvas id="cN1t" role="img" aria-label="Tempo médio N1">Natalia 26/32. Ana Maria 27/32.</canvas></div>
     </div>
-    <div class="card">
-        <h3>Amplitude</h3>
-        <div class="value">37</div>
+  </div>
+  <div class="card">
+    <div class="ct">Comparativo detalhado — N1</div><div class="cs">Maio vs Junho 2026</div>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>Técnica</th><th style="text-align:right">Dias Mai</th><th style="text-align:right">Atend. Mai</th><th style="text-align:right">Média/dia Mai</th><th style="text-align:right">Dias Jun</th><th style="text-align:right">Atend. Jun</th><th style="text-align:right">Média/dia Jun</th><th style="text-align:right">Var.</th></tr></thead>
+        <tbody>
+          <tr><td class="v">Natalia</td><td style="text-align:right">12</td><td style="text-align:right">136</td><td style="text-align:right">11,3</td><td style="text-align:right">20</td><td style="text-align:right">346</td><td style="text-align:right">17,3</td><td class="up" style="text-align:right">▲ +53%</td></tr>
+          <tr><td class="v">Ana Maria</td><td style="text-align:right">25</td><td style="text-align:right">246</td><td style="text-align:right">9,8</td><td style="text-align:right">20</td><td style="text-align:right">220</td><td style="text-align:right">11,0</td><td class="up" style="text-align:right">▲ +12%</td></tr>
+          <tr><td class="v">Ana Carolina</td><td style="text-align:right">—</td><td style="text-align:right">—</td><td style="text-align:right">—</td><td style="text-align:right">19</td><td style="text-align:right">35</td><td style="text-align:right">1,8</td><td style="text-align:right">referência</td></tr>
+        </tbody>
+      </table>
     </div>
+  </div>
 </div>
 
-<h2 style="margin-top:40px; margin-bottom:50px;">Top 3 Técnicos</h2>
-
-<div class="podium">
-    <div class="place silver">
-        <h2>🥈</h2>
-        <h3>Wesley Carlos dos Santos Jesus</h3>
-        <p><strong>37</strong> reincidências</p>
-    </div>
-    <div class="place gold">
-        <h2>🥇</h2>
-        <h3>Valdeir Costa Pereira</h3>
-        <p><strong>35</strong> reincidências</p>
-    </div>
-    <div class="place bronze">
-        <h2>🥉</h2>
-        <h3>Tadeu Borges dos Santos</h3>
-        <p><strong>54</strong> reincidências</p>
-    </div>
+<!-- N2 -->
+<div id="n2" class="sec">
+  <div class="krow">
+    <div class="kpi"><div class="kl">Total atend. — Maio</div><div class="kv">724</div><div class="kd">Júlio desligado</div></div>
+    <div class="kpi k2"><div class="kl">Total atend. — Junho</div><div class="kv">690</div><div class="kd dn">▼ Murilo férias</div></div>
+    <div class="kpi k3"><div class="kl">Excl. ausências — Maio</div><div class="kv">666</div><div class="kd">4 duplas ativas</div></div>
+    <div class="kpi k4"><div class="kl">Excl. ausências — Junho</div><div class="kv">690</div><div class="kd up">▲ +3,6%</div></div>
+  </div>
+  <div class="notice nw"><i class="ti ti-alert-triangle" aria-hidden="true"></i>&nbsp; Murilo estava de férias em junho (0 atendimentos). Luiz Felipe será desligado. Em maio a exclusão era Júlio (desligado) e Tadeu/Luiz H. (férias parciais). Os totais brutos não são comparáveis diretamente — use as duplas ativas em ambos os meses.</div>
+  <div class="card">
+    <div class="ct">Atendimentos por dupla/técnico — N2</div><div class="cs">Comparativo Maio vs Junho · duplas com dado nos dois meses</div>
+    <div class="leg"><span class="li"><span class="ld" style="background:#4f6dee"></span>Maio</span><span class="li"><span class="ld" style="background:#2bc96e"></span>Junho</span></div>
+    <div style="position:relative;width:100%;height:240px"><canvas id="cN2" role="img" aria-label="N2 por dupla maio vs junho">Tadeu/Gilmar 224/204. Valdeir/Pedro 187/158. Antonio 120/115. Luiz H. 58/108. Murilo/Wesley 187/105.</canvas></div>
+  </div>
+  <div class="card">
+    <div class="ct">Média diária por dupla — N2</div><div class="cs">Finalizados ÷ dias trabalhados</div>
+    <div class="leg"><span class="li"><span class="ld" style="background:#4f6dee"></span>Maio</span><span class="li"><span class="ld" style="background:#2bc96e"></span>Junho</span></div>
+    <div style="position:relative;width:100%;height:200px"><canvas id="cN2m" role="img" aria-label="Média diária N2">Tadeu/Gilmar 9/10. Valdeir/Pedro 7/8. Antonio 5/6. Luiz H. 8/6.</canvas></div>
+  </div>
 </div>
 
-<h2>Ranking Completo</h2>
-
-<table>
-<thead>
-<tr>
-<th>Posição</th>
-<th>Técnico</th>
-<th>Reincidências</th>
-<th>Média (Dias)</th>
-<th>Status</th>
-</tr>
-</thead>
-<tbody>
-<tr><td>1</td><td>Valdeir Costa Pereira</td><td>35</td><td>1,9</td><td class="good">Destaque</td></tr>
-<tr><td>2</td><td>Wesley Carlos dos Santos Jesus</td><td>37</td><td>2,3</td><td class="good">Destaque</td></tr>
-<tr><td>3</td><td>Tadeu Borges dos Santos</td><td>54</td><td>2,5</td><td>Dentro da Média</td></tr>
-<tr><td>4</td><td><span style="filter:blur(4px);user-select:none;">Antonio Aparecido Efigenio dos Santos</span></td><td>56</td><td>1,8</td><td>Dentro da Média</td></tr>
-<tr><td>5</td><td><span style="filter:blur(4px);user-select:none;">Murilo Dias Barbosa</span></td><td>57</td><td>2,3</td><td>Dentro da Média</td></tr>
-<tr><td>6</td><td><span style="filter:blur(4px);user-select:none;">Pedro Thiago Moreira Rosa</span></td><td>63</td><td>1,8</td><td>Atenção</td></tr>
-<tr><td>7</td><td><span style="filter:blur(4px);user-select:none;">Luiz Henrique Alves Santana Dantas</span></td><td>63</td><td>2,2</td><td>Atenção</td></tr>
-<tr><td>8</td><td><span style="filter:blur(4px);user-select:none;">Julio Fernando da Silva</span></td><td>68</td><td>1,6</td><td class="alert">Crítico</td></tr>
-<tr><td>9</td><td><span style="filter:blur(4px);user-select:none;">Gilmar Batista dos Santos</span></td><td>72</td><td>1,8</td><td class="alert">Crítico</td></tr>
-</tbody>
-</table>
-
-<div class="footer">
-    <strong>Observação:</strong> Ranking elaborado considerando o volume absoluto de reincidências. Para análise de desempenho definitiva recomenda-se avaliar também a taxa de reincidência em relação ao número total de atendimentos executados por cada técnico.
+<!-- N3 -->
+<div id="n3" class="sec">
+  <div class="krow">
+    <div class="kpi"><div class="kl">Total OS — Maio</div><div class="kv">88</div><div class="kd">ordens de serviço</div></div>
+    <div class="kpi k2"><div class="kl">Total OS — Junho</div><div class="kv">67</div><div class="kd dn">▼ 23,9%</div></div>
+    <div class="kpi kr"><div class="kl">Rompimentos — Maio</div><div class="kv">2</div><div class="kd">ocorrências</div></div>
+    <div class="kpi ko"><div class="kl">Rompimentos — Junho</div><div class="kv">5</div><div class="kd dn">▲ +150%</div></div>
+  </div>
+  <div class="notice nw"><i class="ti ti-alert-triangle" aria-hidden="true"></i>&nbsp; Tempo de resolução não é calculável — os relatórios registram OS por data, sem hora de início e fim. A queda no volume total de OS em junho reflete um mix diferente de atividades (expansão CDHU dominou o mês), não necessariamente menor produtividade.</div>
+  <div class="notice ng"><i class="ti ti-message-circle" aria-hidden="true"></i>&nbsp; "A adoção da escala 5×2 tem sido muito bem recebida pelos técnicos, principalmente pela melhora na qualidade de vida e no descanso." — Gabriel Tadeu, Coord. de Transmissão (relatório junho/2026).</div>
+  <div class="card">
+    <div class="ct">Volume de OS por categoria — Transmissão N3</div><div class="cs">Maio vs Junho 2026</div>
+    <div class="leg"><span class="li"><span class="ld" style="background:#4f6dee"></span>Maio</span><span class="li"><span class="ld" style="background:#2bc96e"></span>Junho</span></div>
+    <div style="position:relative;width:100%;height:230px"><canvas id="cN3" role="img" aria-label="OS N3 maio vs junho">Manut. rede 17/11. Conferências 14/16. Manut. CTO 9/4. Lançamentos 6/8. Rompimentos 2/5. Reequipagem 7/2.</canvas></div>
+  </div>
 </div>
 
+<!-- REINCIDÊNCIAS -->
+<div id="rc" class="sec">
+  <div class="krow">
+    <div class="kpi kr"><div class="kl">Reincidências — Maio</div><div class="kv">87</div><div class="kd">janela 7 dias</div></div>
+    <div class="kpi k2"><div class="kl">Reincidências — Junho</div><div class="kv">78</div><div class="kd up">▼ 10,3% absoluto</div></div>
+    <div class="kpi k3"><div class="kl">Taxa/técnico — Maio</div><div class="kv">12,4</div><div class="kd">87 ÷ 7 técnicos</div></div>
+    <div class="kpi k4"><div class="kl">Taxa/técnico — Junho</div><div class="kv">11,1</div><div class="kd up">▼ 10,5%</div></div>
+  </div>
+  <div class="notice ni"><i class="ti ti-info-circle" aria-hidden="true"></i>&nbsp; Queda real na taxa por técnico (12,4 → 11,1). Dois fatores de cautela: janela de 7 dias pode subestimar reincidências; junho teve 5 rompimentos (vs 2 em maio), o que gera novos atendimentos e pode diluir proporcionalmente a taxa.</div>
+  <div class="card">
+    <div class="ct">Reincidências — total e taxa por técnico</div><div class="cs">Maio vs Junho 2026 · janela 7 dias · efetivo de 7 técnicos</div>
+    <div style="position:relative;width:100%;height:200px"><canvas id="cRc" role="img" aria-label="Reincidências maio vs junho">Total: 87/78. Taxa/técnico ×10: 124/111.</canvas></div>
+  </div>
 </div>
-</body>
-</html>
+
+<!-- ATESTADOS -->
+<div id="at2" class="sec">
+  <div class="krow">
+    <div class="kpi kr"><div class="kl">Atestados — Maio</div><div class="kv">12</div><div class="kd dn">pico do semestre</div></div>
+    <div class="kpi k2"><div class="kl">Atestados — Junho</div><div class="kv">4</div><div class="kd up">▼ 67%</div></div>
+    <div class="kpi k3"><div class="kl">Média Jan–Jun</div><div class="kv">8,3</div><div class="kd">por mês</div></div>
+    <div class="kpi ko"><div class="kl">Junho vs média</div><div class="kv">−52%</div><div class="kd up">abaixo da média</div></div>
+  </div>
+  <div class="notice nw"><i class="ti ti-alert-triangle" aria-hidden="true"></i>&nbsp; Maio (pico) foi o primeiro mês da escala 5×2, não junho. Junho é o mínimo do semestre. Um único mês abaixo da média não estabelece tendência — pode ser sazonalidade, coincidência ou efeito do treinamento. Acompanhar julho e agosto para conclusões mais robustas.</div>
+  <div class="card">
+    <div class="ct">Atestados por mês — Janeiro a Junho 2026</div><div class="cs">Total de documentos apresentados</div>
+    <div style="position:relative;width:100%;height:200px"><canvas id="cAt2" role="img" aria-label="Atestados jan a jun">Jan 8. Fev 12. Mar 5. Abr 9. Mai 12. Jun 4.</canvas></div>
+  </div>
+</div>
+
+<!-- CONSOLIDADO -->
+<div id="gs" class="sec">
+  <div class="notice ni"><i class="ti ti-info-circle" aria-hidden="true"></i>&nbsp; Primeiro mês completo sob a nova escala. A maioria dos indicadores normalizados mostra melhora ou estabilidade. Onde há queda (N2 total, N3 OS), há explicação estrutural — não queda de produtividade individual.</div>
+  <div class="krow">
+    <div class="kpi k2"><div class="kl">Atend. Blip — variação</div><div class="kv">▲ +0,5%</div><div class="kd up">1.167 → 1.173</div></div>
+    <div class="kpi k2"><div class="kl">N1 médias/dia</div><div class="kv">▲ +12–53%</div><div class="kd up">ambas as técnicas</div></div>
+    <div class="kpi k4"><div class="kl">N2 duplas ativas</div><div class="kv">▲ +3,6%</div><div class="kd up">666 → 690</div></div>
+    <div class="kpi k4"><div class="kl">Reincid./técnico</div><div class="kv">▼ 10,5%</div><div class="kd up">12,4 → 11,1</div></div>
+  </div>
+  <div class="card">
+    <div class="ct">Variação percentual das métricas principais</div><div class="cs">Maio → Junho 2026 · métricas normalizadas</div>
+    <div style="position:relative;width:100%;height:220px"><canvas id="cIdx" role="img" aria-label="Variação percentual métricas maio vs junho">Blip total +0.5. Arlene tickets +13.8. Ane K tickets +7.9. Amanda tickets +13.9. N1 Natalia média/dia +53. N1 Ana Maria média/dia +12. Reincidência/técnico -10.5. Atestados -67.</canvas></div>
+  </div>
+  <div class="card">
+    <div class="ct">Critério de decisão — mudança definitiva de escala</div>
+    <div class="cs">Dois indicadores monitorados simultaneamente</div>
+    <div class="facts">
+      <div class="fact g"><div class="fic fg"><i class="ti ti-check" aria-hidden="true"></i></div><div><div class="ft">Produtividade — primeiro sinal positivo</div><div class="fd">Métricas normalizadas crescem em todos os setores comparáveis entre maio e junho. Arlene e Amanda crescem acima de 13%. N1 com melhora consistente nas duas técnicas. Reincidências caindo.</div></div></div>
+      <div class="fact w"><div class="fic fw"><i class="ti ti-alert-triangle" aria-hidden="true"></i></div><div><div class="ft">Produtividade — variável de confusão: treinamento</div><div class="fd">Treinamento de cancelamentos com o Lucas ocorreu em junho ao mesmo tempo que a escala. O próprio relatório de atendimento não consegue isolar os dois efeitos. A diretora pode questionar isso.</div></div></div>
+      <div class="fact w"><div class="fic fw"><i class="ti ti-clock" aria-hidden="true"></i></div><div><div class="ft">Atestados — sinal positivo mas inconclusivo</div><div class="fd">Junho teve 4 atestados (mínimo do semestre), vs 12 em maio. Porém maio foi o pico — e a escala começou em maio. Um mês não é tendência. Monitorar julho e agosto.</div></div></div>
+      <div class="fact"><div class="fic fb"><i class="ti ti-calendar-stats" aria-hidden="true"></i></div><div><div class="ft">Próxima avaliação recomendada: setembro 2026</div><div class="fd">Dois meses completos sem variáveis externas (julho e agosto) permitirão separar efeito da escala do efeito do treinamento e confirmar ou refutar a tendência de atestados.</div></div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+function T(id,btn){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));
+  document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  btn.classList.add('on');
+}
+const dk=matchMedia('(prefers-color-scheme:dark)').matches;
+const gc=dk?'rgba(255,255,255,.06)':'rgba(0,0,0,.06)';
+const lc=dk?'#898781':'#777';
+const B='#4f6dee',G='#2bc96e',P='#9b35c6',C='#28cce8',R='#e8303a',O='#eda100';
+const S=[B,G,P,C,R,O,'#e87ba4','#eb6834'];
+const ax={x:{ticks:{color:lc,font:{size:11}},grid:{display:false}},y:{ticks:{color:lc,font:{size:11}},grid:{color:gc,lineWidth:0.5},border:{display:false}}};
+const base={responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:ax};
+const ns={...base,scales:{...ax,x:{...ax.x,ticks:{color:lc,font:{size:11},maxRotation:30,autoSkip:false}}}};
+function bar(id,labels,d1,d2,single){
+  const ds=single
+    ?[{data:d1,backgroundColor:d1.map((_,i)=>S[i%S.length]),borderRadius:4,maxBarThickness:36}]
+    :[{label:'Mai',data:d1,backgroundColor:B,borderRadius:4,maxBarThickness:22},{label:'Jun',data:d2,backgroundColor:G,borderRadius:4,maxBarThickness:22}];
+  new Chart(document.getElementById(id),{type:'bar',data:{labels,datasets:ds},options:ns});
+}
+bar('cBlip',['Arlene','Ane Karoline','Kimberly','Amanda','Rosi'],[318,279,273,295,2],[362,301,133,336,41]);
+bar('cTmp',['Arlene','Ane Karoline','Kimberly','Amanda'],[84,99,129,55],[76,88,128,58]);
+bar('cMed',['Arlene','Ane K.','Kimberly','Amanda','Rosi'],[12.7,11.2,10.9,11.8,0.1],[14.5,12.0,11.1,13.4,1.6],null);
+bar('cN1m',['Natalia','Ana Maria'],[11.3,9.8],[17.3,11.0]);
+bar('cN1t',['Natalia','Ana Maria'],[26,27],[32,32]);
+bar('cN2',['Tadeu/Gilmar','Valdeir/Pedro','Antonio','Luiz H.','Murilo/Wesley'],[224,187,120,58,187],[204,158,115,108,105]);
+bar('cN2m',['Tadeu/Gilmar','Valdeir/Pedro','Antonio','Luiz H.'],[9,7,5,8],[10,8,6,6]);
+bar('cN3',['Manut. rede','Conferências','Manut. CTO','Lançamentos','Rompimentos','Reequipagem'],[17,14,9,6,2,7],[11,16,4,8,5,2]);
+new Chart(document.getElementById('cRc'),{type:'bar',data:{labels:['Total reincidências','Taxa/técnico (×10)'],datasets:[{label:'Maio',data:[87,124],backgroundColor:R,borderRadius:4,maxBarThickness:28},{label:'Junho',data:[78,111],backgroundColor:G,borderRadius:4,maxBarThickness:28}]},options:{...ns,plugins:{...ns.plugins,tooltip:{callbacks:{label:ctx=>{if(ctx.dataIndex===1)return ctx.dataset.label+': '+(ctx.parsed.y/10).toFixed(1);return ctx.dataset.label+': '+ctx.parsed.y;}}}}}});
+bar('cAt2',['Jan','Fev','Mar','Abr','Mai','Jun'],[8,12,5,9,12,4],null,true);
+const varData=[{l:'Blip total',v:0.5},{l:'Arlene tickets',v:13.8},{l:'Ane K. tickets',v:7.9},{l:'Amanda tickets',v:13.9},{l:'N1 Natalia/dia',v:53},{l:'N1 Ana Maria/dia',v:12},{l:'Reincid./técnico',v:-10.5},{l:'Atestados',v:-67}];
+new Chart(document.getElementById('cIdx'),{type:'bar',data:{labels:varData.map(d=>d.l),datasets:[{data:varData.map(d=>d.v),backgroundColor:varData.map(d=>d.v>=0?G:R),borderRadius:4,maxBarThickness:28}]},options:{...ns,scales:{...ns.scales,y:{...ax.y,ticks:{color:lc,font:{size:11},callback:v=>v+'%'}}},plugins:{legend:{display:false}}}});
+</script>
