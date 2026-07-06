@@ -1,3 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comparativo Maio vs Junho 2026 — Totalvia</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.44.0/dist/tabler-icons.min.css">
+<style>
+:root{
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --surface-1: #0e0e11;
+  --surface-2: #1a1a1f;
+  --border: rgba(255,255,255,.09);
+  --text-primary: #f2f2f3;
+  --text-secondary: #a3a3ab;
+  --text-muted: #77777f;
+}
+html,body{background:var(--surface-1);margin:0;padding:0}
+body{padding:20px}
+.wrap{max-width:900px;margin:0 auto}
+</style>
+</head>
+<body>
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -276,3 +299,4 @@ bar('cAt2',['Jan','Fev','Mar','Abr','Mai','Jun'],[8,12,5,9,12,4],null,true);
 const varData=[{l:'Blip total',v:0.5},{l:'Arlene tickets',v:13.8},{l:'Ane K. tickets',v:7.9},{l:'Amanda tickets',v:13.9},{l:'N1 Natalia/dia',v:53},{l:'N1 Ana Maria/dia',v:12},{l:'Reincid./técnico',v:-10.5},{l:'Atestados',v:-67}];
 new Chart(document.getElementById('cIdx'),{type:'bar',data:{labels:varData.map(d=>d.l),datasets:[{data:varData.map(d=>d.v),backgroundColor:varData.map(d=>d.v>=0?G:R),borderRadius:4,maxBarThickness:28}]},options:{...ns,scales:{...ns.scales,y:{...ax.y,ticks:{color:lc,font:{size:11},callback:v=>v+'%'}}},plugins:{legend:{display:false}}}});
 </script>
+</body></html>
