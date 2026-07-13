@@ -8,12 +8,12 @@
 <style>
 :root{
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --surface-1: #0e0e11;
-  --surface-2: #1a1a1f;
-  --border: rgba(255,255,255,.09);
-  --text-primary: #f2f2f3;
-  --text-secondary: #a3a3ab;
-  --text-muted: #77777f;
+  --surface-1: #f4f5f7;
+  --surface-2: #ffffff;
+  --border: rgba(0,0,0,.08);
+  --text-primary: #16161a;
+  --text-secondary: #5b5b63;
+  --text-muted: #8b8b93;
 }
 html,body{background:var(--surface-1);margin:0;padding:0}
 body{padding:20px}
@@ -25,8 +25,10 @@ body{padding:20px}
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 .wrap{font-family:var(--font-sans);padding-bottom:2rem}
-.topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:var(--surface-2);border:0.5px solid var(--border);border-radius:12px;margin-bottom:4px}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:#1a1a1f;border:0.5px solid rgba(255,255,255,.09);border-radius:12px;margin-bottom:4px}
 .topbar img{height:34px}
+.topbar .tr strong{color:#f2f2f3}
+.topbar .tr span{color:#a3a3ab}
 .tr{text-align:right}.tr strong{display:block;font-size:14px;font-weight:500;color:var(--text-primary)}.tr span{font-size:11px;color:var(--text-secondary)}
 .rainbow{height:3px;background:linear-gradient(90deg,#e8303a,#e8609e,#9b35c6,#4f6dee,#28cce8,#2bc96e,#84c81e);margin-bottom:1.5rem}
 .nav{display:flex;border-bottom:1.5px solid var(--border);margin-bottom:1.5rem;flex-wrap:wrap}
@@ -84,6 +86,7 @@ td.dn{color:#991b1b;font-weight:500}
   <button onclick="T('n3',this)">Transmissão N3</button>
   <button onclick="T('rc',this)">Reincidências</button>
   <button onclick="T('at2',this)">Atestados</button>
+  <button onclick="T('as',this)">Assiduidade</button>
   <button onclick="T('gs',this)">Consolidado</button>
 </nav>
 
@@ -302,6 +305,84 @@ td.dn{color:#991b1b;font-weight:500}
   </div>
 </div>
 
+<!-- ASSIDUIDADE -->
+<div id="as" class="sec">
+  <div class="krow">
+    <div class="kpi"><div class="kl">Assiduidade média (4 setores) — Maio</div><div class="kv">98,5%</div><div class="kd">Atendimento, N1, N2, N3</div></div>
+    <div class="kpi k2"><div class="kl">Assiduidade média (4 setores) — Junho</div><div class="kv">99,8%</div><div class="kd up">▲ melhora nos 4 setores</div></div>
+    <div class="kpi kr"><div class="kl">Empresa toda — Maio</div><div class="kv">98,3%</div><div class="kd">todos os departamentos</div></div>
+    <div class="kpi ko"><div class="kl">Empresa toda — Junho</div><div class="kv">97,9%</div><div class="kd dn">▼ piorou (fora do escopo)</div></div>
+  </div>
+  <div class="notice nw"><i class="ti ti-alert-triangle" aria-hidden="true"></i>&nbsp; Fonte: Relatório de Absenteísmo RH (maio e junho/2026), metodologia oficial da empresa — já desconsidera férias, feriados e as faltas aparentes geradas pela escala 5×2 teste, contando só atestados médicos/odontológicos e faltas reais. Assiduidade = 100% − taxa de absenteísmo total do setor. Reinaldo foi reclassificado de N2 para N3, conforme confirmado — ele consta como "Suporte Técnico Externo" no RH, mas é time de Transmissão de fato. A queda da empresa toda (98,3%→97,9%) vem de fora do escopo do dashboard (Comercial, puxado por um atestado de 88h de um colaborador) — os 4 setores acompanhados aqui melhoraram ou zeraram.</div>
+  <div class="card">
+    <div class="ct">Taxa de assiduidade por setor</div><div class="cs">Maio vs Junho 2026 · 100% − absenteísmo (médico + injustificado)</div>
+    <div class="leg"><span class="li"><span class="ld" style="background:#4f6dee"></span>Maio</span><span class="li"><span class="ld" style="background:#2bc96e"></span>Junho</span></div>
+    <div style="position:relative;width:100%;height:260px"><canvas id="cAssid" role="img" aria-label="Assiduidade por setor maio vs junho">Atendimento 96,8/100. N1 99,3/100. N2 98,5/99,3. N3 99,4/100.</canvas></div>
+  </div>
+  <div class="card">
+    <div class="ct">Absenteísmo — detalhamento por tipo</div><div class="cs">Horas de absenteísmo médico vs injustificado, por setor · Maio vs Junho</div>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>Setor</th><th style="text-align:right">Médico Mai</th><th style="text-align:right">Injust. Mai</th><th style="text-align:right">Médico Jun</th><th style="text-align:right">Injust. Jun</th></tr></thead>
+        <tbody>
+          <tr><td class="v">Atendimento</td><td style="text-align:right">24:54</td><td style="text-align:right">08:00</td><td style="text-align:right">00:00</td><td style="text-align:right">00:00</td></tr>
+          <tr><td class="v">N1 (Sup. Téc. Interno)</td><td style="text-align:right">03:00</td><td style="text-align:right">00:00</td><td style="text-align:right">00:00</td><td style="text-align:right">00:00</td></tr>
+          <tr><td class="v">N2 (Sup. Téc. Externo, sem Reinaldo)</td><td style="text-align:right">25:12</td><td style="text-align:right">00:00</td><td style="text-align:right">00:30</td><td style="text-align:right">08:00</td></tr>
+          <tr><td class="v">N3 (Infraestrutura + Reinaldo)</td><td style="text-align:right">00:00</td><td style="text-align:right">05:58</td><td style="text-align:right">00:00</td><td style="text-align:right">00:00</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ct">Assiduidade — todos os colaboradores</div><div class="cs">Empresa inteira, todos os setores · Maio vs Junho 2026 · fonte: Relatório de Absenteísmo RH</div>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>Colaborador</th><th>Setor</th><th style="text-align:right">Assiduidade Mai</th><th style="text-align:right">Assiduidade Jun</th></tr></thead>
+        <tbody>
+          <tr><td class="v">Jose Luiz Pecin Marques</td><td>Administração</td><td style="text-align:right">99,13%</td><td style="text-align:right">—</td></tr>
+          <tr><td class="v">Larissa Udenal Guidetti</td><td>Administração</td><td style="text-align:right">100,00%</td><td style="text-align:right">—</td></tr>
+          <tr><td class="v">Lígia Fernanda Gonçalves dos Santos</td><td>Administração</td><td style="text-align:right">100,00%</td><td style="text-align:right">100,00%</td></tr>
+          <tr><td class="v">Amanda Fiorentina Lima</td><td>Atendimento - Administração</td><td style="text-align:right">99,02%</td><td style="text-align:right">100,00%</td></tr>
+          <tr><td class="v">Amanda Marceli Rodrigues Ferreira</td><td>Atendimento - Administração</td><td style="text-align:right">95,24%</td><td style="text-align:right">100,00%</td></tr>
+          <tr><td class="v">Ane Karoline Viana Santana</td><td>Atendimento - Administração</td><td style="text-align:right">90,23%</td><td style="text-align:right">100,00%</td></tr>
+          <tr><td class="v">Arlene Amélia Gomes</td><td>Atendimento - Administração</td><td style="text-align:right">95,84%</td><td style="text-align:right">100,00%</td></tr>
+          <tr><td class="v">Kimberly Yorrana Silva Santos</td><td>Atendimento - Administração</td><td style="text-align:right">100,00%</td><td style="text-align:right">100,00%</td></tr>
+          <tr><td class="v">Rosilene Balmant de Souza Matias</td><td>Atendimento - Administração</td><td style="text-align:right">100,00%</td><td style="text-align:right">100,00%</td></tr>
+          <tr><td class="v">Laís Pereira Silva</td><td>Comercial</td><td style="text-align:right">91,55%</td><td style="text-align:right">99,53%</td></tr>
+          <tr><td class="v">Maria Eduarda Balmant de Souza</td><td>Comercial</td><td style="text-align:right">100,00%</td><td style="text-align:right">100,00%</td></tr>
+          <tr><td class="v">Marina Magro Gonçalves</td><td>Comercial</td><td style="text-align:right">71,54%</td><td style="text-align:right">46,85%</td></tr>
+          <tr><td class="v">Ítalo Caroci Cavallari</td><td>Comercial</td><td style="text-align:right">100,00%</td><td style="text-align:right">100,00%</td></tr>
+          <tr><td class="v">Amanda Geovana Mendes</td><td>Desenvolvimento</td><td style="text-align:right">97,71%</td><td style="text-align:right">100,00%</td></tr>
+          <tr><td class="v">Barbara Sthefani Leite Silva</td><td>Desenvolvimento</td><td style="text-align:right">100,00%</td><td style="text-align:right">100,00%</td></tr>
+          <tr><td class="v">Ademir Jaques</td><td>Infraestrutura</td><td style="text-align:right">100,00%</td><td style="text-align:right">100,00%</td></tr>
+          <tr><td class="v">Gabriel Tadeu Borges dos Santos</td><td>Infraestrutura</td><td style="text-align:right">98,31%</td><td style="text-align:right">100,00%</td></tr>
+          <tr><td class="v">Leonardo Dias Stopa</td><td>Infraestrutura</td><td style="text-align:right">100,00%</td><td style="text-align:right">100,00%</td></tr>
+          <tr><td class="v">Reinaldo Alves do Carmo Frois</td><td>Infraestrutura</td><td style="text-align:right">100,00%</td><td style="text-align:right">100,00%</td></tr>
+          <tr><td class="v">Sidielton Galindo Sobrinho</td><td>Infraestrutura</td><td style="text-align:right">100,00%</td><td style="text-align:right">100,00%</td></tr>
+          <tr><td class="v">Wesley Rodrigues Damasceno</td><td>Infraestrutura</td><td style="text-align:right">98,19%</td><td style="text-align:right">100,00%</td></tr>
+          <tr><td class="v">Tereza de Jesus Nascimento Theotonio</td><td>Limpeza</td><td style="text-align:right">100,00%</td><td style="text-align:right">100,00%</td></tr>
+          <tr><td class="v">Bruno Silva Venturin</td><td>Redes</td><td style="text-align:right">100,00%</td><td style="text-align:right">100,00%</td></tr>
+          <tr><td class="v">Antonio Aparecido Efigenio dos Santos</td><td>Suporte Técnico Externo</td><td style="text-align:right">92,15%</td><td style="text-align:right">100,00%</td></tr>
+          <tr><td class="v">Gilmar Batista dos Santos</td><td>Suporte Técnico Externo</td><td style="text-align:right">100,00%</td><td style="text-align:right">100,00%</td></tr>
+          <tr><td class="v">Julio Fernando da Silva</td><td>Suporte Técnico Externo</td><td style="text-align:right">100,00%</td><td style="text-align:right">—</td></tr>
+          <tr><td class="v">Luiz Felipe de Souza Silva</td><td>Suporte Técnico Externo</td><td style="text-align:right">—</td><td style="text-align:right">100,00%</td></tr>
+          <tr><td class="v">Luiz Henrique Alves Santana Dantas</td><td>Suporte Técnico Externo</td><td style="text-align:right">95,35%</td><td style="text-align:right">100,00%</td></tr>
+          <tr><td class="v">Murilo Dias Barbosa</td><td>Suporte Técnico Externo</td><td style="text-align:right">100,00%</td><td style="text-align:right">100,00%</td></tr>
+          <tr><td class="v">Natanael Suzuki</td><td>Suporte Técnico Externo</td><td style="text-align:right">97,64%</td><td style="text-align:right">94,60%</td></tr>
+          <tr><td class="v">Pedro Thiago Moreira Rosa</td><td>Suporte Técnico Externo</td><td style="text-align:right">100,00%</td><td style="text-align:right">100,00%</td></tr>
+          <tr><td class="v">Tadeu Borges dos Santos</td><td>Suporte Técnico Externo</td><td style="text-align:right">100,00%</td><td style="text-align:right">100,00%</td></tr>
+          <tr><td class="v">Valdeir Costa Pereira</td><td>Suporte Técnico Externo</td><td style="text-align:right">100,00%</td><td style="text-align:right">100,00%</td></tr>
+          <tr><td class="v">Wesley Carlos dos Santos Jesus</td><td>Suporte Técnico Externo</td><td style="text-align:right">100,00%</td><td style="text-align:right">100,00%</td></tr>
+          <tr><td class="v">Ana Carolina Silva Generali</td><td>Suporte Técnico Interno</td><td style="text-align:right">98,30%</td><td style="text-align:right">100,00%</td></tr>
+          <tr><td class="v">Ana Maria Xavier Araújo</td><td>Suporte Técnico Interno</td><td style="text-align:right">100,00%</td><td style="text-align:right">100,00%</td></tr>
+          <tr><td class="v">Natalia Aparecida do Nascimento Souza</td><td>Suporte Técnico Interno</td><td style="text-align:right">100,00%</td><td style="text-align:right">100,00%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="font-size:11.5px;color:var(--text-secondary);margin-top:8px">"—" = colaborador não constava no cartão de ponto daquele mês (ex: Julio, José Luiz e Larissa saíram/não apareceram após maio; Luiz Felipe entrou em junho).</div>
+  </div>
+</div>
+
 <!-- CONSOLIDADO -->
 <div id="gs" class="sec">
   <div class="notice ni"><i class="ti ti-info-circle" aria-hidden="true"></i>&nbsp; Primeiro mês completo sob a nova escala. A maioria dos indicadores normalizados mostra melhora ou estabilidade. Onde há queda (N2 total, N3 OS), há explicação estrutural — não queda de produtividade individual.</div>
@@ -310,10 +391,11 @@ td.dn{color:#991b1b;font-weight:500}
     <div class="kpi k2"><div class="kl">N1 médias/dia</div><div class="kv">▲ +12–53%</div><div class="kd up">ambas as técnicas</div></div>
     <div class="kpi k4"><div class="kl">N2 duplas ativas</div><div class="kv">▲ +3,6%</div><div class="kd up">666 → 690</div></div>
     <div class="kpi k4"><div class="kl">Reincid./técnico</div><div class="kv">▼ 10,3%</div><div class="kd up">12,4 → 11,1</div></div>
+    <div class="kpi k3"><div class="kl">Assiduidade média (4 setores)</div><div class="kv">▲ 98,5% → 99,8%</div><div class="kd up">melhorou nos 4 setores</div></div>
   </div>
   <div class="card">
     <div class="ct">Variação percentual das métricas principais</div><div class="cs">Maio → Junho 2026 · todos os setores · verde = favorável, vermelho = desfavorável (não é só sinal do número — ex: atestados caindo é verde)</div>
-    <div style="position:relative;width:100%;height:340px"><canvas id="cIdx" role="img" aria-label="Variação percentual métricas maio vs junho, todos os setores">Blip total +0,5 (favorável). Tempo de espera Atendimento +110 (desfavorável). Arlene tickets +13,8 (favorável). Ane K tickets +7,9 (favorável). Amanda tickets +13,9 (favorável). N1 geral +37 (favorável). N1 Natalia/dia +53 (favorável). N1 Ana Maria/dia +12 (favorável). N2 geral +2 (favorável, estável). N3 geral +13,2 (favorável). N3 Rompimentos +150 (desfavorável). Reincidência/técnico -10,3 (favorável). Atestados -67 (favorável).</canvas></div>
+    <div style="position:relative;width:100%;height:420px"><canvas id="cIdx" role="img" aria-label="Variação percentual métricas maio vs junho, todos os setores">Blip total +0,5 (favorável). Tempo de espera Atendimento +110 (desfavorável). Arlene tickets +13,8 (favorável). Ane K tickets +7,9 (favorável). Amanda tickets +13,9 (favorável). N1 geral +37 (favorável). N1 Natalia/dia +53 (favorável). N1 Ana Maria/dia +12 (favorável). N2 geral +2 (favorável, estável). N3 geral +13,2 (favorável). N3 Rompimentos +150 (desfavorável). Reincidência/técnico -10,3 (favorável). Atestados -67 (favorável). Assiduidade Atendimento +3,3 (favorável). Assiduidade N1 +0,7 (favorável). Assiduidade N2 +0,8 (favorável). Assiduidade N3 +0,6 (favorável).</canvas></div>
   </div>
   <div class="card">
     <div class="ct">Critério de decisão — mudança definitiva de escala</div>
@@ -322,6 +404,7 @@ td.dn{color:#991b1b;font-weight:500}
       <div class="fact g"><div class="fic fg"><i class="ti ti-check" aria-hidden="true"></i></div><div><div class="ft">Produtividade — primeiro sinal positivo</div><div class="fd">Métricas normalizadas crescem em todos os setores comparáveis entre maio e junho. Arlene e Amanda crescem acima de 13%. N1 com melhora consistente nas duas técnicas. Reincidências caindo.</div></div></div>
       <div class="fact w"><div class="fic fw"><i class="ti ti-alert-triangle" aria-hidden="true"></i></div><div><div class="ft">Produtividade — variável de confusão: treinamento</div><div class="fd">Treinamento de cancelamentos com o Lucas ocorreu em junho ao mesmo tempo que a escala. O próprio relatório de atendimento não consegue isolar os dois efeitos. A diretora pode questionar isso.</div></div></div>
       <div class="fact w"><div class="fic fw"><i class="ti ti-clock" aria-hidden="true"></i></div><div><div class="ft">Atestados — sinal positivo mas inconclusivo</div><div class="fd">Junho teve 4 atestados (mínimo do semestre), vs 12 em maio. Porém maio foi o pico — e a escala começou em maio. Um mês não é tendência. Monitorar julho e agosto.</div></div></div>
+      <div class="fact g"><div class="fic fg"><i class="ti ti-check" aria-hidden="true"></i></div><div><div class="ft">Assiduidade — melhora confirmada nos 4 setores (fonte RH)</div><div class="fd">Segundo o Relatório de Absenteísmo oficial (já desconta férias e as faltas aparentes da escala 5×2 teste): Atendimento 96,8%→100%, N1 99,3%→100%, N2 98,5%→99,3%, N3 99,4%→100%. Ressalva: a empresa toda piorou no mesmo período (98,3%→97,9%), puxada por um setor fora do escopo do dashboard (Comercial).</div></div></div>
       <div class="fact"><div class="fic fb"><i class="ti ti-calendar-stats" aria-hidden="true"></i></div><div><div class="ft">Próxima avaliação recomendada: setembro 2026</div><div class="fd">Dois meses completos sem variáveis externas (julho e agosto) permitirão separar efeito da escala do efeito do treinamento e confirmar ou refutar a tendência de atestados.</div></div></div>
     </div>
   </div>
@@ -336,9 +419,9 @@ function T(id,btn){
   document.getElementById(id).classList.add('on');
   btn.classList.add('on');
 }
-const dk=matchMedia('(prefers-color-scheme:dark)').matches;
-const gc=dk?'rgba(255,255,255,.06)':'rgba(0,0,0,.06)';
-const lc=dk?'#898781':'#777';
+const dk=false;
+const gc='rgba(0,0,0,.06)';
+const lc='#555';
 const B='#4f6dee',G='#2bc96e',P='#9b35c6',C='#28cce8',R='#e8303a',O='#eda100';
 const S=[B,G,P,C,R,O,'#e87ba4','#eb6834'];
 const ax={x:{ticks:{color:lc,font:{size:11}},grid:{display:false}},y:{ticks:{color:lc,font:{size:11}},grid:{color:gc,lineWidth:0.5},border:{display:false}}};
@@ -403,6 +486,8 @@ bar('cN3Media',['Ademir','Leonardo','Wesley','Reinaldo','Sidielton','Gabriel'],[
 bar('cN3Semana',['Ademir','Leonardo','Wesley','Reinaldo','Sidielton','Gabriel'],[8.0,8.0,8.0,7.5,8.0,4.0],[9.0,8.5,8.5,8.5,8.5,7.0]);
 new Chart(document.getElementById('cRc'),{type:'bar',data:{labels:['Total reincidências','Taxa/técnico'],datasets:[{label:'Maio',data:[87,124],backgroundColor:R,borderRadius:4,maxBarThickness:28},{label:'Junho',data:[78,111],backgroundColor:G,borderRadius:4,maxBarThickness:28}]},options:{...ns,plugins:{...ns.plugins,tooltip:{callbacks:{label:ctx=>{if(ctx.dataIndex===1)return ctx.dataset.label+': '+(ctx.parsed.y/10).toFixed(1);return ctx.dataset.label+': '+ctx.parsed.y;}}}}}});
 new Chart(document.getElementById('cAt2'),{type:'line',data:{labels:['Jan','Fev','Mar','Abr','Mai','Jun'],datasets:[{label:'Atestados',data:[8,12,5,9,12,4],borderColor:B,backgroundColor:'rgba(79,109,238,.15)',fill:true,tension:.3,pointRadius:4,pointBackgroundColor:B},{label:'Média (8,3)',data:[8.3,8.3,8.3,8.3,8.3,8.3],borderColor:lc,borderDash:[6,4],pointRadius:0,fill:false}]},options:{...base,plugins:{legend:{display:true,position:'top',labels:{color:lc,font:{size:11}}}},scales:ax}});
+new Chart(document.getElementById('cAssid'),{type:'bar',data:{labels:['Atendimento','N1','N2','N3'],datasets:[{label:'Mai',data:[96.8,99.3,98.5,99.4],backgroundColor:B,borderRadius:4,maxBarThickness:22},{label:'Jun',data:[100,100,99.3,100],backgroundColor:G,borderRadius:4,maxBarThickness:22}]},options:{...ns,scales:{...ax,y:{...ax.y,min:90,max:100,ticks:{color:lc,font:{size:11},callback:v=>v+'%'}}}}});
+
 const varData=[
   {l:'Blip total',v:0.5,good:true},
   {l:'Tempo de espera (Atend.)',v:110,good:false},
@@ -416,9 +501,13 @@ const varData=[
   {l:'N3 geral',v:13.2,good:true},
   {l:'N3 Rompimentos',v:150,good:false},
   {l:'Reincid./técnico',v:-10.3,good:true},
-  {l:'Atestados',v:-67,good:true}
+  {l:'Atestados',v:-67,good:true},
+  {l:'Assiduidade Atendimento',v:3.3,good:true},
+  {l:'Assiduidade N1',v:0.7,good:true},
+  {l:'Assiduidade N2',v:0.8,good:true},
+  {l:'Assiduidade N3',v:0.6,good:true}
 ];
-new Chart(document.getElementById('cIdx'),{type:'bar',data:{labels:varData.map(d=>d.l),datasets:[{data:varData.map(d=>d.v),backgroundColor:varData.map(d=>d.good?G:R),borderRadius:4,maxBarThickness:20}]},options:{...hbase,scales:{...hax,x:{...hax.x,ticks:{color:lc,font:{size:11},callback:v=>v+'%'}}},plugins:{legend:{display:false}}}});
+new Chart(document.getElementById('cIdx'),{type:'bar',data:{labels:varData.map(d=>d.l),datasets:[{data:varData.map(d=>d.v),backgroundColor:varData.map(d=>d.good?G:R),borderRadius:4,maxBarThickness:18}]},options:{...hbase,scales:{...hax,x:{...hax.x,ticks:{color:lc,font:{size:11},callback:v=>v+'%'}}},plugins:{legend:{display:false}}}});
 function donut(canvasId,legId,labels,vals,cols,unit){
   const total=vals.reduce((a,b)=>a+b,0);
   const centerText={id:'centerText'+canvasId,afterDraw(chart){
