@@ -83,8 +83,12 @@ td.dn{color:#991b1b;font-weight:500}
   <button class="on" onclick="T('at',this)">Atendimento</button>
   <button onclick="T('n1',this)">Suporte N1</button>
   <button onclick="T('n2',this)">Suporte N2</button>
-  <button onclick="T('n3',this)">Transmissão N3</button>
   <button onclick="T('rc',this)">Reincidências</button>
+  <button onclick="T('n3',this)">Transmissão N3</button>
+  <button onclick="T('es',this)">Estoque</button>
+  <button onclick="T('mk',this)">Marketing</button>
+  <button onclick="T('rd',this)">Redes</button>
+  <button onclick="T('fn',this)">Financeiro</button>
   <button onclick="T('at2',this)">Atestados</button>
   <button onclick="T('as',this)">Assiduidade</button>
   <button onclick="T('gs',this)">Consolidado</button>
@@ -160,8 +164,35 @@ td.dn{color:#991b1b;font-weight:500}
       </table>
     </div>
   </div>
+  <div class="card">
+    <div class="ct">Reversões de cancelamento — Junho 2026</div>
+    <div class="cs">8 casos documentados pela equipe de Atendimento · fonte: relatório interno (Rosi Balmant, 14/07/2026)</div>
+    <div class="notice nw"><i class="ti ti-alert-triangle" aria-hidden="true"></i>&nbsp; <b>Amostra selecionada, não o total de cancelamentos de junho.</b> O relatório reúne apenas casos com desfecho documentado pela própria equipe — não há registro do número total de solicitações de cancelamento no mês, então não é possível calcular uma taxa de retenção real a partir destes números. A autora do relatório (Rosi) também é uma das atendentes citadas, com os 2 casos dela entre os de desfecho positivo.</div>
+    <div class="krow" style="margin-bottom:.9rem">
+      <div class="kpi"><div class="kl">Casos documentados</div><div class="kv">8</div><div class="kd">junho · equipe Atendimento</div></div>
+      <div class="kpi k2"><div class="kl">Revertidos no 1º contato</div><div class="kv">7</div><div class="kd">cliente convencido a não cancelar</div></div>
+      <div class="kpi k3"><div class="kl">Migrações de plano</div><div class="kv">7</div><div class="kd">upgrade negociado</div></div>
+      <div class="kpi k4"><div class="kl">Retenção sem migração</div><div class="kv">1</div><div class="kd">manteve plano original</div></div>
+      <div class="kpi ko"><div class="kl">Recuperado após cancelar</div><div class="kv">1</div><div class="kd">cancelou e reativou depois</div></div>
+    </div>
+    <div style="font-size:11.5px;color:var(--text-secondary);margin-bottom:.7rem"><b>Motivos citados:</b> concorrência/preço · problemas de sinal/Wi-Fi · corte de gastos &nbsp;·&nbsp; <b>Estratégias usadas:</b> novos planos, teste de velocidade/equipamento, visita técnica (Projeto Casa Conectada), negociação personalizada</div>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>Atendente</th><th>Cliente</th><th>Motivo alegado</th><th>Desfecho</th></tr></thead>
+        <tbody>
+          <tr><td class="v">Amanda</td><td>Luana Silva Souza</td><td>Concorrência/preço</td><td>Revertido · migrou p/ 620MB</td></tr>
+          <tr><td class="v">Amanda</td><td>Gabriel José Bernardi Cavalcante</td><td>Sinal/Wi-Fi</td><td>Revertido · migrou p/ 620MB</td></tr>
+          <tr><td class="v">Arlene</td><td>Rafael Rocha Dias</td><td>Sinal (equip. de TV)</td><td>Revertido · migrou p/ 820MB · fidelizado 12 meses</td></tr>
+          <tr><td class="v">Arlene</td><td>Welington Parpinelli Silva</td><td>Concorrência/preço</td><td>Revertido · migrou p/ 620MB</td></tr>
+          <tr><td class="v">Ane Karoline</td><td>Maria Madalena de Souza Silva</td><td>Corte de gastos</td><td class="dn">Cancelou em 09/06 · reativou em 18/06 (620MB)</td></tr>
+          <tr><td class="v">Kimberly</td><td>Erick Alves Diniz</td><td>Sinal instável</td><td>Revertido · migrou p/ 620MB</td></tr>
+          <tr><td class="v">Rosi</td><td>Laurindo Antonio Zago</td><td>Sinal</td><td>Revertido · migrou p/ 520MB</td></tr>
+          <tr><td class="v">Rosi</td><td>Jocimar Vilarins</td><td>Sinal (1 de 2 acessos)</td><td>Manutenção técnica · sem migração</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
-
 <!-- N1 -->
 <div id="n1" class="sec">
   <div class="krow">
@@ -205,7 +236,6 @@ td.dn{color:#991b1b;font-weight:500}
     </div>
   </div>
 </div>
-
 <!-- N2 -->
 <div id="n2" class="sec">
   <div class="krow">
@@ -222,16 +252,46 @@ td.dn{color:#991b1b;font-weight:500}
     <div class="ct">Atendimentos por dupla/técnico — N2</div><div class="cs">Comparativo Maio vs Junho · duplas com dado nos dois meses</div>
     <div class="leg"><span class="li"><span class="ld" style="background:#4f6dee"></span>Maio</span><span class="li"><span class="ld" style="background:#2bc96e"></span>Junho</span></div>
     <div style="position:relative;width:100%;height:240px"><canvas id="cN2" role="img" aria-label="N2 por dupla maio vs junho">Gilmar (c/ Julio em mai, Tadeu em jun) 224/204. Wesley C. (c/ Murilo em mai, sozinho em jun) 187/105. Valdeir (sozinho em mai, c/ Pedro em jun) 135/158. Antonio (c/ Pedro em mai, sozinho em jun) 120/115. Luiz H. (c/ Tadeu parcial em mai, sozinho em jun) 58/108.</canvas></div>
+    <table style="margin-top:10px;font-size:11px">
+      <thead><tr><th>Técnico-âncora</th><th>Parceiro — Maio</th><th>Parceiro — Junho</th></tr></thead>
+      <tbody>
+        <tr><td class="v">Gilmar</td><td>com Julio</td><td>com Tadeu</td></tr>
+        <tr><td class="v">Wesley C.</td><td>com Murilo</td><td>sozinho</td></tr>
+        <tr><td class="v">Valdeir</td><td>sozinho</td><td>com Pedro</td></tr>
+        <tr><td class="v">Antonio</td><td>com Pedro</td><td>sozinho</td></tr>
+        <tr><td class="v">Luiz H.</td><td>com Tadeu (parcial)</td><td>sozinho</td></tr>
+      </tbody>
+    </table>
   </div>
   <div class="card">
     <div class="ct">Média diária por dupla — N2</div><div class="cs">Finalizados ÷ dias trabalhados</div>
     <div class="leg"><span class="li"><span class="ld" style="background:#4f6dee"></span>Maio</span><span class="li"><span class="ld" style="background:#2bc96e"></span>Junho</span></div>
     <div style="position:relative;width:100%;height:200px"><canvas id="cN2m" role="img" aria-label="Média diária N2">Gilmar 9/10. Wesley C. 7/5. Valdeir 5/8. Antonio 5/6. Luiz H. 8/6.</canvas></div>
+    <table style="margin-top:10px;font-size:11px">
+      <thead><tr><th>Técnico-âncora</th><th>Parceiro — Maio</th><th>Parceiro — Junho</th></tr></thead>
+      <tbody>
+        <tr><td class="v">Gilmar</td><td>com Julio</td><td>com Tadeu</td></tr>
+        <tr><td class="v">Wesley C.</td><td>com Murilo</td><td>sozinho</td></tr>
+        <tr><td class="v">Valdeir</td><td>sozinho</td><td>com Pedro</td></tr>
+        <tr><td class="v">Antonio</td><td>com Pedro</td><td>sozinho</td></tr>
+        <tr><td class="v">Luiz H.</td><td>com Tadeu (parcial)</td><td>sozinho</td></tr>
+      </tbody>
+    </table>
   </div>
   <div class="card">
     <div class="ct">Média semanal estimada — N2</div>
     <div class="leg"><span class="li"><span class="ld" style="background:#4f6dee"></span>Maio</span><span class="li"><span class="ld" style="background:#2bc96e"></span>Junho</span></div>
     <div style="position:relative;width:100%;height:200px"><canvas id="cN2w" role="img" aria-label="Média semanal estimada N2">Gilmar 45/50. Wesley C. 35/25. Valdeir 25/40. Antonio 25/30. Luiz H. 40/30.</canvas></div>
+    <table style="margin-top:10px;font-size:11px">
+      <thead><tr><th>Técnico-âncora</th><th>Parceiro — Maio</th><th>Parceiro — Junho</th></tr></thead>
+      <tbody>
+        <tr><td class="v">Gilmar</td><td>com Julio</td><td>com Tadeu</td></tr>
+        <tr><td class="v">Wesley C.</td><td>com Murilo</td><td>sozinho</td></tr>
+        <tr><td class="v">Valdeir</td><td>sozinho</td><td>com Pedro</td></tr>
+        <tr><td class="v">Antonio</td><td>com Pedro</td><td>sozinho</td></tr>
+        <tr><td class="v">Luiz H.</td><td>com Tadeu (parcial)</td><td>sozinho</td></tr>
+      </tbody>
+    </table>
   </div>
   <div class="card">
     <div class="ct">Distribuição de atendimentos por técnico-âncora — Junho</div>
@@ -242,7 +302,20 @@ td.dn{color:#991b1b;font-weight:500}
     </div>
   </div>
 </div>
-
+<!-- REINCIDÊNCIAS -->
+<div id="rc" class="sec">
+  <div class="krow">
+    <div class="kpi kr"><div class="kl">Reincidências — Maio</div><div class="kv">87</div><div class="kd">janela 7 dias</div></div>
+    <div class="kpi k2"><div class="kl">Reincidências — Junho</div><div class="kv">78</div><div class="kd up">▼ 10,3% absoluto</div></div>
+    <div class="kpi k3"><div class="kl">Taxa/técnico — Maio</div><div class="kv">12,4</div><div class="kd">87 ÷ 7 técnicos</div></div>
+    <div class="kpi k4"><div class="kl">Taxa/técnico — Junho</div><div class="kv">11,1</div><div class="kd up">▼ 10,3%</div></div>
+  </div>
+  <div class="notice ni"><i class="ti ti-info-circle" aria-hidden="true"></i>&nbsp; Queda real na taxa por técnico (12,4 → 11,1). Dois fatores de cautela: janela de 7 dias pode subestimar reincidências; junho teve 5 rompimentos (vs 2 em maio), o que gera novos atendimentos e pode diluir proporcionalmente a taxa.</div>
+  <div class="card">
+    <div class="ct">Reincidências — total e taxa por técnico</div><div class="cs">Maio vs Junho 2026 · janela 7 dias · efetivo de 7 técnicos</div>
+    <div style="position:relative;width:100%;height:200px"><canvas id="cRc" role="img" aria-label="Reincidências maio vs junho">Total: 87/78. Taxa/técnico ×10: 124/111.</canvas></div>
+  </div>
+</div>
 <!-- N3 -->
 <div id="n3" class="sec">
   <div class="krow">
@@ -274,22 +347,82 @@ td.dn{color:#991b1b;font-weight:500}
     <div style="position:relative;width:100%;height:440px"><canvas id="cN3Cat" role="img" aria-label="OS por categoria maio vs junho">Manutenção na rede óptica 17/16. Conferências/certificações 14/11. Manutenção em CTO 9/4. Lançamentos de fibra 6/8. Reequipagem de postes 7/2. Análise de links 7/3. Falta de energia 4/0. Manutenção em torre 2/5. Rompimento 2/5. Montagem de rede óptica 2/0. Pesquisa de campo 2/2. Manutenção na Totalvia 2/1. Manutenção no DC 1/0. Curso de capacitação 1/1. Equipagem de postes 0/2. Suporte externo 0/1. Parceria com outros setores 0/1.</canvas></div>
   </div>
 </div>
-
-<!-- REINCIDÊNCIAS -->
-<div id="rc" class="sec">
+<!-- ESTOQUE -->
+<div id="es" class="sec">
   <div class="krow">
-    <div class="kpi kr"><div class="kl">Reincidências — Maio</div><div class="kv">87</div><div class="kd">janela 7 dias</div></div>
-    <div class="kpi k2"><div class="kl">Reincidências — Junho</div><div class="kv">78</div><div class="kd up">▼ 10,3% absoluto</div></div>
-    <div class="kpi k3"><div class="kl">Taxa/técnico — Maio</div><div class="kv">12,4</div><div class="kd">87 ÷ 7 técnicos</div></div>
-    <div class="kpi k4"><div class="kl">Taxa/técnico — Junho</div><div class="kv">11,1</div><div class="kd up">▼ 10,3%</div></div>
+    <div class="kpi"><div class="kl">Negociações — Maio</div><div class="kv">15</div><div class="kd">itens negociados</div></div>
+    <div class="kpi k2"><div class="kl">Negociações — Junho</div><div class="kv">20</div><div class="kd up">▲ +33%</div></div>
+    <div class="kpi kr"><div class="kl">Desconto total — Maio</div><div class="kv">R$ 1.976,52</div><div class="kd">Laís R$1.305,52 · Duda R$671,00</div></div>
+    <div class="kpi ko"><div class="kl">Desconto total — Junho</div><div class="kv">R$ 3.229,77</div><div class="kd up">▲ +63,4%</div></div>
   </div>
-  <div class="notice ni"><i class="ti ti-info-circle" aria-hidden="true"></i>&nbsp; Queda real na taxa por técnico (12,4 → 11,1). Dois fatores de cautela: janela de 7 dias pode subestimar reincidências; junho teve 5 rompimentos (vs 2 em maio), o que gera novos atendimentos e pode diluir proporcionalmente a taxa.</div>
+  <div class="notice nw"><i class="ti ti-alert-triangle" aria-hidden="true"></i>&nbsp; Fonte: tabela de negociação de compras (Google Sheets). Métrica é desconto obtido na negociação, não volume de compras — mais negociações e mais desconto pode refletir mais atividade do setor, não necessariamente mais barato por item.</div>
   <div class="card">
-    <div class="ct">Reincidências — total e taxa por técnico</div><div class="cs">Maio vs Junho 2026 · janela 7 dias · efetivo de 7 técnicos</div>
-    <div style="position:relative;width:100%;height:200px"><canvas id="cRc" role="img" aria-label="Reincidências maio vs junho">Total: 87/78. Taxa/técnico ×10: 124/111.</canvas></div>
+    <div class="ct">Desconto obtido por responsável</div><div class="cs">Maio vs Junho 2026</div>
+    <div class="leg"><span class="li"><span class="ld" style="background:#4f6dee"></span>Maio</span><span class="li"><span class="ld" style="background:#2bc96e"></span>Junho</span></div>
+    <div style="position:relative;width:100%;height:220px"><canvas id="cEsDesc" role="img" aria-label="Desconto por responsável maio vs junho">Laís 1305,52/2733,90. Duda 671,00/495,87.</canvas></div>
   </div>
 </div>
-
+<!-- MARKETING -->
+<div id="mk" class="sec">
+  <div class="krow">
+    <div class="kpi"><div class="kl">Invest. anúncios — Maio</div><div class="kv">R$ 2.061,42</div><div class="kd">Meta + Google</div></div>
+    <div class="kpi k2"><div class="kl">Invest. anúncios — Junho</div><div class="kv">R$ 955,63</div><div class="kd dn">▼ −53,6%</div></div>
+    <div class="kpi kr"><div class="kl">Total de chamados — Maio</div><div class="kv">292</div><div class="kd">lenta/caindo/sem internet</div></div>
+    <div class="kpi ko"><div class="kl">Total de chamados — Junho</div><div class="kv">348</div><div class="kd dn">▲ +19,2%</div></div>
+  </div>
+  <div class="notice nw"><i class="ti ti-alert-triangle" aria-hidden="true"></i>&nbsp; "Total de chamados" é um recorte de qualidade de rede (lenta/caindo/sem internet) relacionado a Atendimento e N2, segundo o setor — mas os números não batem diretamente com os totais já usados nessas abas, então tratamos como visão própria do Marketing, não uma soma dos outros setores.</div>
+  <div class="notice ng"><i class="ti ti-message-circle" aria-hidden="true"></i>&nbsp; Migrações/instalações/cancelamentos deste relatório são os mesmos eventos já contabilizados na aba Atendimento (bateram exatamente) — não somamos de novo aqui, só o investimento em anúncios e os chamados são dado exclusivo do Marketing.</div>
+  <div class="card">
+    <div class="ct">Investimento em anúncios por canal</div><div class="cs">Maio vs Junho 2026 · R$</div>
+    <div class="leg"><span class="li"><span class="ld" style="background:#4f6dee"></span>Maio</span><span class="li"><span class="ld" style="background:#2bc96e"></span>Junho</span></div>
+    <div style="position:relative;width:100%;height:200px"><canvas id="cMkAds" role="img" aria-label="Investimento em anúncios maio vs junho">Meta Ads 1515,11/758,53. Google Ads 546,31/197,10.</canvas></div>
+  </div>
+  <div class="card">
+    <div class="ct">Chamados por tipo de problema</div><div class="cs">Maio vs Junho 2026</div>
+    <div class="leg"><span class="li"><span class="ld" style="background:#4f6dee"></span>Maio</span><span class="li"><span class="ld" style="background:#2bc96e"></span>Junho</span></div>
+    <div style="position:relative;width:100%;height:220px"><canvas id="cMkChamados" role="img" aria-label="Chamados por tipo maio vs junho">Lenta 45/76. Caindo 43/38. Sem internet 204/234.</canvas></div>
+  </div>
+</div>
+<!-- REDES -->
+<div id="rd" class="sec">
+  <div class="krow">
+    <div class="kpi"><div class="kl">Visadas verificadas — Maio</div><div class="kv">26</div><div class="kd">rádio + rural fibra + sem possib.</div></div>
+    <div class="kpi k2"><div class="kl">Visadas verificadas — Junho</div><div class="kv">23</div><div class="kd">▼ −11,5%</div></div>
+    <div class="kpi kr"><div class="kl">Rompimentos — Maio</div><div class="kv">2</div><div class="kd">registrados no setor de Redes</div></div>
+    <div class="kpi ko"><div class="kl">Rompimentos — Junho</div><div class="kv">4</div><div class="kd dn">▲ +100%</div></div>
+  </div>
+  <div class="notice nw"><i class="ti ti-alert-triangle" aria-hidden="true"></i>&nbsp; Fonte: relatório mensal de tarefas do setor de Redes (Ana e Bruno) — dado extraído de lista de atividades, não de um indicador fechado do sistema. Rompimentos aqui são um registro próprio do setor de Redes, distinto (mas relacionado) do que já aparece na aba Transmissão N3.</div>
+  <div class="card">
+    <div class="ct">Verificações de visada por tipo</div><div class="cs">Maio vs Junho 2026</div>
+    <div class="leg"><span class="li"><span class="ld" style="background:#4f6dee"></span>Maio</span><span class="li"><span class="ld" style="background:#2bc96e"></span>Junho</span></div>
+    <div style="position:relative;width:100%;height:220px"><canvas id="cRdVisadas" role="img" aria-label="Visadas por tipo maio vs junho">Rádio 13/10. Rural Fibra 8/9. Sem possibilidade 5/4.</canvas></div>
+  </div>
+  <div class="card">
+    <div class="ct">Novos serviços e chamados abertos</div><div class="cs">Maio vs Junho 2026</div>
+    <div class="leg"><span class="li"><span class="ld" style="background:#4f6dee"></span>Maio</span><span class="li"><span class="ld" style="background:#2bc96e"></span>Junho</span></div>
+    <div style="position:relative;width:100%;height:180px"><canvas id="cRdNovos" role="img" aria-label="Novos serviços e chamados maio vs junho">Novos serviços de rede 1/2. Chamados abertos LinkBrasil 0/1.</canvas></div>
+  </div>
+</div>
+<!-- FINANCEIRO -->
+<div id="fn" class="sec">
+  <div class="krow">
+    <div class="kpi"><div class="kl">Notas emitidas — Maio</div><div class="kv">3.841</div><div class="kd">competência abr/26</div></div>
+    <div class="kpi k2"><div class="kl">Notas emitidas — Junho</div><div class="kv">3.927</div><div class="kd up">▲ +2,2%</div></div>
+    <div class="kpi kr"><div class="kl">Impostos pagos — Maio</div><div class="kv">R$ 86.899,99</div><div class="kd">Cobranças+Holding+Serviços</div></div>
+    <div class="kpi ko"><div class="kl">Impostos pagos — Junho</div><div class="kv">R$ 89.221,06</div><div class="kd dn">▲ +2,7%</div></div>
+  </div>
+  <div class="notice nw"><i class="ti ti-alert-triangle" aria-hidden="true"></i>&nbsp; Fonte: relatório de notas fiscais (Amanda) + planilha de impostos por entidade. Amanda Fiorentino/Fiorentina Lima é a mesma pessoa (confirmado) — atua em Atendimento e também responde pelo Financeiro. Não é uma medida de produtividade da escala 5×2 — é volume/custo fiscal, cresce com o negócio, não necessariamente com eficiência.</div>
+  <div class="card">
+    <div class="ct">Impostos pagos por entidade</div><div class="cs">Maio vs Junho 2026 · R$</div>
+    <div class="leg"><span class="li"><span class="ld" style="background:#4f6dee"></span>Maio</span><span class="li"><span class="ld" style="background:#2bc96e"></span>Junho</span></div>
+    <div style="position:relative;width:100%;height:200px"><canvas id="cFnImp" role="img" aria-label="Impostos por entidade maio vs junho">Cobranças 11461,43/12515,08. Holding 7326,83/8360,04. Serviços 68111,73/68345,94.</canvas></div>
+  </div>
+  <div class="card">
+    <div class="ct">Notas fiscais — valores</div><div class="cs">Maio vs Junho 2026 · R$</div>
+    <div class="leg"><span class="li"><span class="ld" style="background:#4f6dee"></span>Maio</span><span class="li"><span class="ld" style="background:#2bc96e"></span>Junho</span></div>
+    <div style="position:relative;width:100%;height:200px"><canvas id="cFnNotas" role="img" aria-label="Notas fiscais por tipo maio vs junho">Nota de Comunicação 416411,31/427885,47. Nota de Serviço 127801,31/131356,22. Nota de Débito 142950,40/144276,60.</canvas></div>
+  </div>
+</div>
 <!-- ATESTADOS -->
 <div id="at2" class="sec">
   <div class="krow">
@@ -304,7 +437,6 @@ td.dn{color:#991b1b;font-weight:500}
     <div style="position:relative;width:100%;height:200px"><canvas id="cAt2" role="img" aria-label="Atestados jan a jun">Jan 8. Fev 12. Mar 5. Abr 9. Mai 12. Jun 4.</canvas></div>
   </div>
 </div>
-
 <!-- ASSIDUIDADE -->
 <div id="as" class="sec">
   <div class="krow">
@@ -382,7 +514,6 @@ td.dn{color:#991b1b;font-weight:500}
     <div style="font-size:11.5px;color:var(--text-secondary);margin-top:8px">"—" = colaborador não constava no cartão de ponto daquele mês (ex: Julio, José Luiz e Larissa saíram/não apareceram após maio; Luiz Felipe entrou em junho).</div>
   </div>
 </div>
-
 <!-- CONSOLIDADO -->
 <div id="gs" class="sec">
   <div class="notice ni"><i class="ti ti-info-circle" aria-hidden="true"></i>&nbsp; Primeiro mês completo sob a nova escala. A maioria dos indicadores normalizados mostra melhora ou estabilidade. Onde há queda (N2 total, N3 OS), há explicação estrutural — não queda de produtividade individual.</div>
@@ -413,6 +544,38 @@ td.dn{color:#991b1b;font-weight:500}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
+Chart.register({
+  id: 'valueLabels',
+  afterDatasetsDraw(chart) {
+    if (chart.config.type === 'doughnut') return;
+    const {ctx} = chart;
+    const horizontal = chart.options.indexAxis === 'y';
+    ctx.save();
+    ctx.font = '600 10px system-ui,sans-serif';
+    ctx.fillStyle = '#333';
+    chart.data.datasets.forEach((dataset, dsIndex) => {
+      const meta = chart.getDatasetMeta(dsIndex);
+      if (meta.hidden || meta.type === 'doughnut' || dataset.noLabel) return;
+      meta.data.forEach((element, index) => {
+        const raw = dataset.labelValues ? dataset.labelValues[index] : dataset.data[index];
+        if (raw === null || raw === undefined || typeof raw === 'object') return;
+        const label = Number.isInteger(raw) ? String(raw) : raw.toFixed(1).replace('.', ',');
+        const pos = element.tooltipPosition ? element.tooltipPosition() : {x: element.x, y: element.y};
+        if (horizontal) {
+          ctx.textBaseline = 'middle';
+          if (raw < 0) { ctx.textAlign = 'right'; ctx.fillText(label, pos.x - 4, pos.y); }
+          else { ctx.textAlign = 'left'; ctx.fillText(label, pos.x + 4, pos.y); }
+        } else {
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'bottom';
+          ctx.fillText(label, pos.x, pos.y - 4);
+        }
+      });
+    });
+    ctx.restore();
+  }
+});
+Chart.defaults.layout.padding = {top: 16, right: 30, bottom: 0, left: 0};
 function T(id,btn){
   document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));
   document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('on'));
@@ -484,9 +647,16 @@ new Chart(document.getElementById('cN3Cat'),{type:'bar',data:{labels:['Manutenç
 bar('cN3Tec',['Ademir','Leonardo','Wesley','Reinaldo','Sidielton','Gabriel'],[41,41,37,38,39,20],[35,34,34,32,32,28]);
 bar('cN3Media',['Ademir','Leonardo','Wesley','Reinaldo','Sidielton','Gabriel'],[1.6,1.6,1.6,1.5,1.6,0.8],[1.8,1.7,1.7,1.7,1.7,1.4]);
 bar('cN3Semana',['Ademir','Leonardo','Wesley','Reinaldo','Sidielton','Gabriel'],[8.0,8.0,8.0,7.5,8.0,4.0],[9.0,8.5,8.5,8.5,8.5,7.0]);
-new Chart(document.getElementById('cRc'),{type:'bar',data:{labels:['Total reincidências','Taxa/técnico'],datasets:[{label:'Maio',data:[87,124],backgroundColor:R,borderRadius:4,maxBarThickness:28},{label:'Junho',data:[78,111],backgroundColor:G,borderRadius:4,maxBarThickness:28}]},options:{...ns,plugins:{...ns.plugins,tooltip:{callbacks:{label:ctx=>{if(ctx.dataIndex===1)return ctx.dataset.label+': '+(ctx.parsed.y/10).toFixed(1);return ctx.dataset.label+': '+ctx.parsed.y;}}}}}});
-new Chart(document.getElementById('cAt2'),{type:'line',data:{labels:['Jan','Fev','Mar','Abr','Mai','Jun'],datasets:[{label:'Atestados',data:[8,12,5,9,12,4],borderColor:B,backgroundColor:'rgba(79,109,238,.15)',fill:true,tension:.3,pointRadius:4,pointBackgroundColor:B},{label:'Média (8,3)',data:[8.3,8.3,8.3,8.3,8.3,8.3],borderColor:lc,borderDash:[6,4],pointRadius:0,fill:false}]},options:{...base,plugins:{legend:{display:true,position:'top',labels:{color:lc,font:{size:11}}}},scales:ax}});
+new Chart(document.getElementById('cRc'),{type:'bar',data:{labels:['Total reincidências','Taxa/técnico'],datasets:[{label:'Maio',data:[87,124],labelValues:[87,12.4],backgroundColor:R,borderRadius:4,maxBarThickness:28},{label:'Junho',data:[78,111],labelValues:[78,11.1],backgroundColor:G,borderRadius:4,maxBarThickness:28}]},options:{...ns,plugins:{...ns.plugins,tooltip:{callbacks:{label:ctx=>{if(ctx.dataIndex===1)return ctx.dataset.label+': '+(ctx.parsed.y/10).toFixed(1);return ctx.dataset.label+': '+ctx.parsed.y;}}}}}});
+new Chart(document.getElementById('cAt2'),{type:'line',data:{labels:['Jan','Fev','Mar','Abr','Mai','Jun'],datasets:[{label:'Atestados',data:[8,12,5,9,12,4],borderColor:B,backgroundColor:'rgba(79,109,238,.15)',fill:true,tension:.3,pointRadius:4,pointBackgroundColor:B},{label:'Média (8,3)',data:[8.3,8.3,8.3,8.3,8.3,8.3],borderColor:lc,borderDash:[6,4],pointRadius:0,fill:false,noLabel:true}]},options:{...base,plugins:{legend:{display:true,position:'top',labels:{color:lc,font:{size:11}}}},scales:ax}});
 new Chart(document.getElementById('cAssid'),{type:'bar',data:{labels:['Atendimento','N1','N2','N3'],datasets:[{label:'Mai',data:[96.8,99.3,98.5,99.4],backgroundColor:B,borderRadius:4,maxBarThickness:22},{label:'Jun',data:[100,100,99.3,100],backgroundColor:G,borderRadius:4,maxBarThickness:22}]},options:{...ns,scales:{...ax,y:{...ax.y,min:90,max:100,ticks:{color:lc,font:{size:11},callback:v=>v+'%'}}}}});
+bar('cEsDesc',['Laís','Duda'],[1305.52,671.00],[2733.90,495.87]);
+bar('cMkAds',['Meta Ads','Google Ads'],[1515.11,546.31],[758.53,197.10]);
+bar('cMkChamados',['Lenta','Caindo','Sem internet'],[45,43,204],[76,38,234]);
+bar('cRdVisadas',['Rádio','Rural Fibra','Sem possibilidade'],[13,8,5],[10,9,4]);
+bar('cRdNovos',['Novos serviços de rede','Chamados abertos LinkBrasil'],[1,0],[2,1]);
+bar('cFnImp',['Cobranças','Holding','Serviços'],[11461.43,7326.83,68111.73],[12515.08,8360.04,68345.94]);
+bar('cFnNotas',['Nota de Comunicação','Nota de Serviço','Nota de Débito'],[416411.31,127801.31,142950.40],[427885.47,131356.22,144276.60]);
 
 const varData=[
   {l:'Blip total',v:0.5,good:true},
